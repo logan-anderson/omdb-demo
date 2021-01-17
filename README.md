@@ -1,6 +1,6 @@
 # [Checkout the live version](https://objective-noyce-113b6d.netlify.app/)
 
-# Getting started
+# Getting Started
 
 1. Make a `.env` file with your [API KEY](http://www.omdbapi.com/apikey.aspx)
 ```
