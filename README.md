@@ -1,3 +1,13 @@
+# [Checkout the live version](https://objective-noyce-113b6d.netlify.app/)
+
+# Getting started
+
+1. Make a `.env` file with your API KEY
+```
+REACT_APP_API_KEY=*
+```
+2. Run `yarn`
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
