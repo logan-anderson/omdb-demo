@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 
 const URL = 'http://www.omdbapi.com'
+
 const API_KEY = process.env.REACT_APP_API_KEY as string
 
 export interface QueryParams {
