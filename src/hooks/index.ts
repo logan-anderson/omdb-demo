@@ -34,11 +34,7 @@ export function useFetchIMDB({ search }: QueryParams) {
             params.append('apikey', API_KEY)
             params.append('s', search)
             params.append('type', 'movie')
-            const res = await fetch(`${URL}/?${params.toString()}`, {
-                headers: new Headers({
-                    "Access-Control-Allow-Origin": "*"
-                })
-            })
+            const res = await fetch(`${URL}/?${params.toString()}`)
             const data: Data = await res.json()
             setData(data)
             setLoading(false)
