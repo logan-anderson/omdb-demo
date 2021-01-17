@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-const URL = 'http://www.omdbapi.com'
+const URL = 'https://www.omdbapi.com'
 
 const API_KEY = process.env.REACT_APP_API_KEY as string
 
@@ -34,7 +34,11 @@ export function useFetchIMDB({ search }: QueryParams) {
             params.append('apikey', API_KEY)
             params.append('s', search)
             params.append('type', 'movie')
-            const res = await fetch(`${URL}/?${params.toString()}`)
+            const res = await fetch(`${URL}/?${params.toString()}`, {
+                headers: new Headers({
+                    "Access-Control-Allow-Origin": "*"
+                })
+            })
             const data: Data = await res.json()
             setData(data)
             setLoading(false)
