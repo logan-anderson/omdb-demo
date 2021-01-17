@@ -2,7 +2,7 @@
 
 # Getting started
 
-1. Make a `.env` file with your API KEY
+1. Make a `.env` file with your [API KEY](http://www.omdbapi.com/apikey.aspx)
 ```
 REACT_APP_API_KEY=*
 ```
