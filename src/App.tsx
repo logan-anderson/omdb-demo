@@ -15,15 +15,15 @@ type OnClickFunc = (item: Search) => void;
 const DisplayItem: React.FC<{
   searchItem: Search;
   onClick?: OnClickFunc;
-  showButton?: boolean;
   fullWidth?: boolean;
   buttonText: string;
+  disabled?: boolean;
 }> = ({
   searchItem,
   onClick = () => {},
-  showButton = false,
   fullWidth = false,
   buttonText,
+  disabled = false,
 }) => {
   return (
     <Grid item xs={12} md={fullWidth ? 12 : 6} lg={fullWidth ? 12 : 4}>
@@ -36,6 +36,12 @@ const DisplayItem: React.FC<{
         <Typography align="center" variant="h1" is="h1">
           {searchItem.Title}
         </Typography>
+        <Typography align="center" is="p">
+          {searchItem.Year}
+        </Typography>
+        <Typography align="center" is="p">
+          ID: {searchItem.imdbID}
+        </Typography>
         <div>
           <img
             src={searchItem.Poster}
@@ -45,18 +51,17 @@ const DisplayItem: React.FC<{
             }}
           />
         </div>
-        {showButton && (
-          <Grid container>
-            <Button
-              color="primary"
-              onClick={() => {
-                onClick(searchItem);
-              }}
-            >
-              {buttonText}
-            </Button>
-          </Grid>
-        )}
+        <Grid container>
+          <Button
+            disabled={disabled}
+            color="primary"
+            onClick={() => {
+              onClick(searchItem);
+            }}
+          >
+            {buttonText}
+          </Button>
+        </Grid>
       </Paper>
     </Grid>
   );
@@ -66,7 +71,8 @@ const Movies: React.FC<{
   loading: boolean;
   data: Data | null;
   onClick: OnClickFunc;
-}> = ({ loading, data, onClick }) => {
+  myList: Search[];
+}> = ({ loading, data, onClick, myList }) => {
   if (loading || !data) {
     return <CircularProgress />;
   }
@@ -75,11 +81,11 @@ const Movies: React.FC<{
       {data?.Search?.map((item) => {
         return (
           <DisplayItem
+            disabled={myList.includes(item)}
             buttonText="Add movie to list"
             onClick={onClick}
             key={item.imdbID}
             searchItem={item}
-            showButton={true}
           />
         );
       })}
@@ -124,7 +130,12 @@ function App() {
         />
         <Grid container direction="row">
           <Grid item sm={12} md={8}>
-            <Movies onClick={onClick} loading={loading} data={data} />
+            <Movies
+              myList={myList}
+              onClick={onClick}
+              loading={loading}
+              data={data}
+            />
           </Grid>
           <Grid item sm={12} md={4}>
             <Typography align="center" variant="h1" is="h1">
@@ -138,7 +149,6 @@ function App() {
                   onClick={genFilterFunc(item)}
                   key={item.imdbID}
                   searchItem={item}
-                  showButton={true}
                 />
               );
             })}
